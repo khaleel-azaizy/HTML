@@ -8,10 +8,12 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            overflow-y: scroll;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             text-align: center;
+            background-color: #45a04938;
         }
 
         header {
@@ -87,11 +89,11 @@
             background-color: #55a259;
         }
 
-        /* Sidebar styles */
+        
         .sidebar {
             height: 100%;
             width: 250px;
-            position: absolute;
+            position:fixed;
             top: 0;
             left: -250px;
             background-color: #4a4949;
@@ -123,11 +125,11 @@
             font-size: 36px;
         }
 
-        /* Positioning the button at the top left */
+        
         #openSidebarBtn {
             font-size: 20px;
             cursor: pointer;
-            background-color: #ffffff;
+            background-color: #ffffff47;
             color: rgb(0, 0, 0);
             padding: 10px;
             border: none;
@@ -135,11 +137,25 @@
             position:fixed;
             top: 10px;
             left: 10px;
-            z-index: 1001; /* Ensure it is above other elements */
+            z-index: 1001; 
         }
 
         #openSidebarBtn:hover {
             background-color: #999d99;
+        }
+        .p1{
+            background-color: #4caf4f29;
+            width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .rectangle1 ,.rectangle2 ,.rectangle3 ,.rectangle4 ,.rectangle5 ,.rectangle6{
+          height: 200px;
+          width: 400px;
+          background-color: #00000049;
+          margin: 30px;
+          padding: 16px;
+          display: inline-block;
         }
     </style>
 </head>
@@ -148,7 +164,7 @@
         <h1 class="project-name">Travel Diary</h1>
         <nav>
             <ul>
-                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="Home.html" class="nav-link">Home</a></li>
                 <li><a href="new_trip.html" class="nav-link">Document a Trip</a></li>
             </ul>
         </nav>
@@ -159,13 +175,23 @@
         <section id="results">
             <!-- Search results will be displayed here -->
         </section>
+        <h2>Welcome to the best Travel Diary</h2>
+        <h3>Share your travel experiences and memories with friends and family.</h3>
     </header>
     <main>
-        <h2>Welcome to the best Travel Diary</h2>
-        <p>Share your travel experiences and memories with friends and family.</p>
+        
+        <h2 class="p1">Here are some popular travel destination.</h2>
+        <div> 
+            <p class="rectangle1"></p>
+            <p class="rectangle2"></p>
+            <p class="rectangle3"></p>
+            <p class="rectangle4"></p>
+            <p class="rectangle5"></p>
+            <p class="rectangle6"></p>
+        </div>
     </main>
 
-    <!-- Sidebar -->
+    
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">&times;</a>
         <a href="#">View Profile</a>
@@ -185,9 +211,34 @@
         function closeSidebar() {
             document.getElementById("mySidebar").style.left = "-250px";
         }
+        function searchTrips(){}
 
         document.getElementById('openSidebarBtn').addEventListener('click', openSidebar);
         document.getElementById('searchButton').addEventListener('click', searchTrips);
+        const mysql = require('mysql2');
+
+        const connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'khaleel2001',
+       database: 'destinations',
+       });
+
+     connection.connect((err) => {
+     if (err) {
+        console.error('Error connecting to database:', err);
+        return;
+     }
+    console.log('Connected to MySQL database!');
+
+    });
+    connection.query('SELECT name FROM countriestable ', (err, results) => {
+    if (err) {
+        console.error('Error executing query:', err);
+        return;
+    }
+    document.rectangle1.style.backgroundImage = `url('${results}')`;
+});
     </script>
 </body>
 </html>
