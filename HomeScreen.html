@@ -215,7 +215,7 @@
 
         document.getElementById('openSidebarBtn').addEventListener('click', openSidebar);
         document.getElementById('searchButton').addEventListener('click', searchTrips);
-        const mysql = require('mysql2');
+        const mysql = require('node_modules/mysql2');
 
         const connection = mysql.createConnection({
         host: 'localhost',
@@ -232,12 +232,12 @@
     console.log('Connected to MySQL database!');
 
     });
-    connection.query('SELECT name FROM countriestable ', (err, results) => {
+    connection.query('SELECT location FROM images where id = 1', (err, results) => {
     if (err) {
         console.error('Error executing query:', err);
         return;
     }
-    document.rectangle1.style.backgroundImage = `url('${results}')`;
+    document.querySelector('.rectangle1').style.backgroundImage = `url('${results}')`;
 });
     </script>
 </body>
