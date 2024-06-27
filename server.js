@@ -3,13 +3,14 @@ const bodyParser = require('body-parser');
 const db = require('./connection'); 
 const app = express();
 const port = 3000;
+const path = require('path');
 
 // Middleware to parse incoming request bodies
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Serve static files (e.g., HTML, CSS)
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Endpoint to handle user signup
 app.post('/signup', (req, res) => {
