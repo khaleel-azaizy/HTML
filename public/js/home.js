@@ -4,7 +4,7 @@ window.onload = () => {
     if(!sessionStorage.username){
         location.href = '/login';
     } else{
-        greeting.innerHTML = `hello ${sessionStorage.username}`;
+        greeting.innerHTML = ` ${sessionStorage.username} Welcome to Travel Diary`;
     }
 }
 
