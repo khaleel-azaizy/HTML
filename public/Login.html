@@ -3,39 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Diary</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-</head>
+    <title>Login Page</title>
 
+    <link rel="stylesheet" href="css/form.css">
+
+</head>
 <body>
-    <div class="wrapper">
-        <form id="loginForm" action="#">
-            <h1>Login</h1>
-            <div class="input-box">
-                <input type="text" placeholder="Username" required>
-                <i class='bx bxs-user'></i>
-            </div>
-            <div class="input-box">
-                <input type="password" placeholder="Password" required>
-                <i class='bx bxs-lock-alt'></i>
-            </div>
-            <div class="remember-forget">
-                <label><input type="checkbox"> Remember me</label>
-            </div>
-            <button type="submit" class="btn" id="loginBtn">Login</button>
-            <a href="#" class="a">Forget password?</a>
-            <div class="register-link">
-                <p>Don't have an Account ? <a href="#">Register</a> </p>
-            </div>
-        </form>
+
+    <div class="alert-box">
+        <p class="alert"></p>
     </div>
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
-            window.location.href = 'HomeScreen.html'; // Redirect to HomeScreen.html
-        });
-    </script>
+
+    <div class="form">
+        <h1 class="heading">login</h1>
+        <input type="email" placeholder="email" autocomplete="off" class="email" required>
+        <input type="password" placeholder="password" autocomplete="off" class="password" required>
+        <button class="submit-btn">log in</button>
+        <a href="/register" class="link">don't have an account? Register one</a>
+    </div>
+
+    <script src="js/form.js"></script>
+    
 </body>
 </html>

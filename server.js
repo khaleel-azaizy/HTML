@@ -1,50 +1,88 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const db = require('./connection'); 
-const app = express();
-const port = 3000;
 const path = require('path');
+const bodyParser = require('body-parser');
+const knex = require('knex');
 
-// Middleware to parse incoming request bodies
-app.use(bodyParser.urlencoded({ extended: false }));
+const db = knex({
+    client: 'mysql',
+    connection: {
+        host: 'localhost',
+        user: 'root',
+        password: 'khaleel2001',
+        database: 'destinations',
+        port: 3306
+    }
+});
+
+const app = express();
+
+let initialPath = path.join(__dirname, "public");
+
 app.use(bodyParser.json());
+app.use(express.static(initialPath));
 
-// Serve static files (e.g., HTML, CSS)
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Endpoint to handle user signup
-app.post('/signup', (req, res) => {
-    const { username, password, email } = req.body;
-    const query = 'INSERT INTO users (username, password, email) VALUES (?, ?, ?)';
-    db.query(query, [username, password, email], (err, results) => {
-        if (err) {
-            console.error('Error executing query:', err);
-            res.status(500).send('Server Error');
-            return;
-        }
-        res.send('User registered successfully!');
-    });
+app.get('/', (req, res) => {
+    res.sendFile(path.join(initialPath, "home.html"));
 });
 
-// Endpoint to handle user login
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
-    db.query(query, [username, password], (err, results) => {
-        if (err) {
-            console.error('Error executing query:', err);
-            res.status(500).send('Server Error');
-            return;
-        }
-        if (results.length > 0) {
-            res.send('Login successful!');
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(initialPath, "login.html"));
+});
+
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(initialPath, "register.html"));
+});
+
+app.post('/register-user', (req, res) => {
+    const { username, email, password } = req.body;
+
+    if (!username.length || !email.length || !password.length) {
+        res.json('fill all the fields');
+    } else {
+        db("users").insert({
+            username: username,
+            email: email,
+            password: password
+        })
+        .then(() => {
+            return db.select("username", "email").from("users").where({email: email});
+        })
+        .then(data => {
+            res.json(data[0]);
+        })
+        .catch(err => {
+            console.error(err); // Log the error
+            if (err.code === 'ER_DUP_ENTRY') {
+                res.json('email already exists');
+            } else {
+                res.status(500).json('An error occurred');
+            }
+        });
+    }
+});
+
+app.post('/login-user', (req, res) => {
+    const { email, password } = req.body;
+
+    db.select('username', 'email')
+    .from('users')
+    .where({
+        email: email,
+        password: password
+    })
+    .then(data => {
+        if (data.length) {
+            res.json(data[0]);
         } else {
-            res.status(401).send('Invalid credentials');
+            res.json('email or password is incorrect');
         }
+    })
+    .catch(err => {
+        console.error(err); // Log the error
+        res.status(500).json('An error occurred');
     });
 });
 
-// Start server
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+app.listen(3000, () => {
+    console.log('listening on port 3000......');
 });

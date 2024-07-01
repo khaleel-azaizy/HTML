@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+
+    <link rel="stylesheet" href="css/home.css">
+
+</head>
+
+
+   
+
+    
+    
+
+<body>
+    <header>
+        <h1 class="project-name">Travel Diary</h1>
+        <nav>
+            <ul>
+                <li><a href="new_trip.html" class="nav-link">Document a Trip</a></li>
+            </ul>
+        </nav>
+        
+        <h2>Welcome to Travel Diary</h2>
+        <h3>Share your travel experiences and memories.</h3>
+    </header>
+    <br>
+    <section id="search-bar">
+        <input type="text" id="searchInput" placeholder="Search for trips...">
+        <button id="searchButton">Search</button>
+    </section>
+    <section id="results">
+        <!-- Search results will be displayed here -->
+    </section>
+    <main>
+        
+        <h2 class="p1">Here are some popular travel destination.</h2>
+        <div class="container">
+            <div class="rectangle-container">
+                <p class="rectangle1"></p>
+                <p class="description">Description </p>
+            </div>
+            <div class="rectangle-container">
+                <p class="rectangle2"></p>
+                <p class="description">Description </p>
+            </div>
+            <div class="rectangle-container">
+                <p class="rectangle3"></p>
+                <p class="description">Description </p>
+            </div>
+            <div class="rectangle-container">
+                <p class="rectangle4"></p>
+                <p class="description">Description </p>
+            </div>
+            <div class="rectangle-container">
+                <p class="rectangle5"></p>
+                <p class="description">Description </p>
+            </div>
+            <div class="rectangle-container">
+                <p class="rectangle6"></p>
+                <p class="description">Description </p>
+            </div>
+        </div>
+        
+    </main>
+    
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">&times;</a>
+        <a href="#">View Profile</a>
+        <button class="logout">log out</button>
+    </div>
+
+    <button id="openSidebarBtn">Personal Account</button>
+
+    <script src="js/home.js"></script>
+</body>
+</html>
